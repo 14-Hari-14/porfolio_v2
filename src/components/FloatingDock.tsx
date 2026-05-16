@@ -1,54 +1,104 @@
 import {
+  AnimatePresence,
   motion,
   useMotionValue,
-  useTransform,
   useSpring,
-  AnimatePresence,
+  useTransform,
   type MotionValue,
 } from "framer-motion";
-import { Github, Linkedin, Mail } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { Github, Linkedin } from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
 
 type LinkType = {
   title: string;
-  icon: React.ReactNode;
+  icon: React.ReactElement<{ className?: string }>;
   href: string;
 };
 
 const links: LinkType[] = [
   { title: "LinkedIn", icon: <Linkedin />, href: "https://www.linkedin.com/" },
   { title: "GitHub", icon: <Github />, href: "https://github.com/" },
-  { title: "Email", icon: <Mail />, href: "mailto:nhari142004@gmail.com" },
 ];
 
 export function FloatingDock() {
-  const [visible, setVisible] = useState(false);
-  const mouseX = useMotionValue(Infinity);
+  const [visible] = useState(true);
+  const mouseY = useMotionValue(Infinity);
+  const dockRef = useRef<HTMLDivElement>(null);
+  const clickSound = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 400);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const handleMouseMove = (e: MouseEvent) => {
+      const bounds = dockRef.current?.getBoundingClientRect();
+      if (!bounds) {
+        mouseY.set(Infinity);
+        return;
+      }
+
+      const nearDock =
+        e.clientX >= bounds.left - 32 &&
+        e.clientX <= bounds.right + 32 &&
+        e.clientY >= bounds.top - 32 &&
+        e.clientY <= bounds.bottom + 32;
+
+      mouseY.set(nearDock ? e.clientY : Infinity);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseY]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      clickSound.current = new Audio("/audios/navbarclick.wav");
+      clickSound.current.load();
+    }
+
+    return () => {
+      if (clickSound.current) {
+        clickSound.current.pause();
+        clickSound.current.src = "";
+      }
+    };
   }, []);
+
+  const playClickSound = () => {
+    if (clickSound.current) {
+      clickSound.current.currentTime = 0;
+      clickSound.current.play().catch(console.warn);
+    }
+  };
 
   return (
     <AnimatePresence>
       {visible && (
         <motion.div
-          initial={{ y: 80, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 80, opacity: 0 }}
+          initial={{ x: 40, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          exit={{ x: 40, opacity: 0 }}
           transition={{ type: "spring", stiffness: 200, damping: 20 }}
-          className="fixed bottom-6 inset-x-0 z-50 flex justify-center pointer-events-none"
+          className="fixed right-6 top-1/2 z-50 hidden lg:flex -translate-y-1/2 pointer-events-none"
         >
           <div
-            onMouseMove={(e) => mouseX.set(e.pageX)}
-            onMouseLeave={() => mouseX.set(Infinity)}
-            className="pointer-events-auto corner-frame flex items-end gap-3 h-16 px-4 bg-background/80 backdrop-blur-md border border-neon"
+            ref={dockRef}
+            className="
+                pointer-events-auto
+                flex flex-col items-center gap-6
+                px-4 py-6
+                border border-orange-100
+                bg-neutral-800
+                backdrop-blur-md
+
+                dark:border-blue-200
+                dark:bg-[var(--theme-background)]
+            "
           >
             {links.map((el) => (
-              <IconContainer key={el.title} el={el} mouseX={mouseX} />
+              <IconContainer
+                key={el.title}
+                el={el}
+                mouseY={mouseY}
+                onClick={playClickSound}
+              />
             ))}
           </div>
         </motion.div>
@@ -59,26 +109,46 @@ export function FloatingDock() {
 
 function IconContainer({
   el,
-  mouseX,
+  mouseY,
+  onClick,
 }: {
   el: LinkType;
-  mouseX: MotionValue<number>;
+  mouseY: MotionValue<number>;
+  onClick?: () => void;
 }) {
   const ref = useRef<HTMLAnchorElement>(null);
   const [hovered, setHovered] = useState(false);
 
-  const distance = useTransform(mouseX, (val: number) => {
-    const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
-    return val - bounds.x - bounds.width / 2;
+  const distance = useTransform(mouseY, (val: number) => {
+    if (!Number.isFinite(val)) {
+      return 9999;
+    }
+
+    const bounds = ref.current?.getBoundingClientRect() ?? { y: 0, height: 0 };
+    return val - bounds.y - bounds.height / 2;
   });
 
-  const widthT = useTransform(distance, [-120, 0, 120], [40, 72, 40]);
-  const heightT = useTransform(distance, [-120, 0, 120], [40, 72, 40]);
-  const iconT = useTransform(distance, [-120, 0, 120], [20, 36, 20]);
+  const widthTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
+  const heightTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
+  const widthIconTransform = useTransform(distance, [-150, 0, 150], [35, 70, 35]);
+  const heightIconTransform = useTransform(distance, [-150, 0, 150], [35, 70, 35]);
 
-  const width = useSpring(widthT, { mass: 0.1, stiffness: 150, damping: 12 });
-  const height = useSpring(heightT, { mass: 0.1, stiffness: 150, damping: 12 });
-  const iconSize = useSpring(iconT, {
+  const width = useSpring(widthTransform, {
+    mass: 0.1,
+    stiffness: 150,
+    damping: 12,
+  });
+  const height = useSpring(heightTransform, {
+    mass: 0.1,
+    stiffness: 150,
+    damping: 12,
+  });
+  const widthIcon = useSpring(widthIconTransform, {
+    mass: 0.1,
+    stiffness: 150,
+    damping: 12,
+  });
+  const heightIcon = useSpring(heightIconTransform, {
     mass: 0.1,
     stiffness: 150,
     damping: 12,
@@ -91,31 +161,39 @@ function IconContainer({
       target={el.href.startsWith("http") ? "_blank" : undefined}
       rel="noreferrer"
       aria-label={el.title}
+      onClick={onClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="relative flex items-center justify-center"
+      className="flex items-center justify-center"
     >
       <motion.div
         style={{ width, height }}
-        className="flex items-center justify-center border border-neon-2/60 bg-surface/60 text-neon hover:text-neon-2 transition-colors"
+          className="relative flex items-center justify-center border border-orange-100 bg-[var(--theme-foreground)] dark:border-blue-200 dark:bg-[var(--theme-background)]"
       >
         <AnimatePresence>
           {hovered && (
             <motion.span
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 4 }}
-              className="absolute -top-9 px-2 py-0.5 text-[10px] uppercase tracking-[0.25em] border border-neon text-neon bg-background whitespace-nowrap"
+              initial={{ opacity: 0, x: -10, y: "-50%" }}
+              animate={{ opacity: 1, x: -60, y: "-50%" }}
+              exit={{ opacity: 0, x: 2, y: "-50%" }}
+              transition={{ duration: 0.2 }}
+              className="absolute right-[calc(100%+20px)] top-1/2 w-32 whitespace-nowrap border border-orange-100 bg-neutral-700 px-3 py-1.5 text-center text-[10px] uppercase tracking-[0.25em] text-white dark:border-blue-200 dark:bg-blue-700 dark:text-white"
             >
               {el.title}
             </motion.span>
           )}
         </AnimatePresence>
         <motion.div
-          style={{ width: iconSize, height: iconSize }}
-          className="flex items-center justify-center [&>svg]:w-full [&>svg]:h-full"
+          style={{ width: widthIcon, height: heightIcon }}
+          className="flex items-center justify-center"
         >
-          {el.icon}
+          {React.cloneElement(el.icon, {
+            className: `h-full w-full transition-colors duration-300 ${
+              hovered
+                ? "text-orange-400 dark:text-purple-400"
+                : "text-white"
+            }`,
+          })}
         </motion.div>
       </motion.div>
     </a>

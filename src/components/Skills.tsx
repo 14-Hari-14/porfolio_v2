@@ -4,7 +4,7 @@ const groups = [
   {
     id: "AI_ML",
     title: "AI / ML",
-    items: ["Python", "PyTorch", "TensorFlow", "LightGBM", "Feature Engineering", "scikit-learn"],
+    items: ["Python", "PyTorch", "LightGBM", "Feature Engineering", "scikit-learn", " NLP"],
   },
   {
     id: "DATA_CV",
@@ -14,7 +14,7 @@ const groups = [
   {
     id: "MLOPS",
     title: "MLOps",
-    items: ["FastAPI", "Docker", "Git", "Linux", "CI/CD", "Vector DBs"],
+    items: ["FastAPI", "Docker", "Git", "Linux", "CI/CD", "Vector DBs", "LangChain", "RAG",],
   },
   {
     id: "WEB_BASE",
@@ -26,21 +26,21 @@ const groups = [
 export function Skills() {
   return (
     <section id="skills" className="relative py-28 border-t border-border">
-      <div className="relative mx-auto max-w-7xl px-6">
-        <SectionHeader index="// 03" title="SKILL_MATRIX" subtitle="loaded_modules" />
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
+        <SectionHeader index="// 03" title="SKILLs" subtitle="loaded_modules" />
 
-        <div className="grid md:grid-cols-2 gap-5">
+        <div className="grid gap-5 sm:grid-cols-2">
           {groups.map((g, i) => (
             <div
               key={g.id}
-              className="corner-frame border border-border bg-surface/50 p-6 hover:border-neon transition-colors group"
+              className="corner-frame border border-border bg-surface/50 p-5 sm:p-6 hover:border-neon transition-colors group"
             >
-              <div className="flex items-center justify-between mb-5">
-                <div className="flex items-center gap-3">
+              <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
+                <div className="flex items-center gap-3 min-w-0">
                   <span className="text-[10px] px-2 py-0.5 border border-neon-2 text-neon-2 tracking-widest">
                     MOD_{String(i + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="text-xl font-display font-bold text-foreground group-hover:text-neon transition-colors">
+                  <h3 className="text-lg sm:text-xl font-display font-bold text-foreground group-hover:text-neon transition-colors">
                     {g.title}
                   </h3>
                 </div>

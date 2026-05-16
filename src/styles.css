@@ -1,45 +1,6 @@
-@import "tailwindcss" source(none);
-@source "../src";
+@import "tailwindcss";
 @import "tw-animate-css";
-
-@custom-variant dark (&:is(.dark *));
-
-@theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-
-  --color-neon: var(--neon);
-  --color-neon-2: var(--neon-2);
-  --color-grid: var(--grid);
-  --color-surface: var(--surface);
-  --color-surface-2: var(--surface-2);
-
-  --font-display: "Basement Grotesque", "Inter", ui-sans-serif, system-ui;
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
-}
+@import "./tailwind-theme.css";
 
 @font-face {
   font-family: "Basement Grotesque";
@@ -50,72 +11,100 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Ligione";
+  src: local("Ligione"), local("Ligione Regular");
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* LIGHT — orange + grey */
 :root {
   --radius: 0.5rem;
 
-  --background: oklch(0.97 0.005 80);
-  --foreground: oklch(0.22 0.02 260);
+  --theme-background: oklch(0.97 0.005 80);
+  --theme-foreground: oklch(0.22 0.02 260);
+  --theme-surface: oklch(0.94 0.008 80);
+  --theme-surface-2: oklch(0.89 0.012 80);
+  --theme-card: oklch(0.99 0.003 80);
+  --theme-card-foreground: oklch(0.22 0.02 260);
+  --theme-popover: oklch(0.99 0.003 80);
+  --theme-popover-foreground: oklch(0.22 0.02 260);
+  --theme-primary: oklch(0.7 0.18 50);
+  --theme-primary-foreground: oklch(0.18 0.02 260);
+  --theme-secondary: oklch(0.65 0.04 260);
+  --theme-secondary-foreground: oklch(0.99 0 0);
+  --theme-muted: oklch(0.92 0.008 80);
+  --theme-muted-foreground: oklch(0.45 0.02 260);
+  --theme-accent: oklch(0.7 0.18 50);
+  --theme-accent-foreground: oklch(0.18 0.02 260);
+  --theme-destructive: oklch(0.6 0.22 25);
+  --theme-destructive-foreground: oklch(0.99 0 0);
+  --theme-border: oklch(0.85 0.01 80);
+  --theme-input: oklch(0.85 0.01 80);
+  --theme-ring: oklch(0.7 0.18 50);
+  --theme-neon: oklch(0.7 0.19 50);
+  --theme-neon-2: oklch(0.55 0.04 260);
+  --theme-grid: oklch(0.22 0.02 260 / 0.08);
 
-  --surface: oklch(0.94 0.008 80);
-  --surface-2: oklch(0.89 0.012 80);
+  --background: var(--theme-background);
+  --foreground: var(--theme-foreground);
 
-  --card: oklch(0.99 0.003 80);
-  --card-foreground: oklch(0.22 0.02 260);
-  --popover: oklch(0.99 0.003 80);
-  --popover-foreground: oklch(0.22 0.02 260);
+  --surface: var(--theme-surface);
+  --surface-2: var(--theme-surface-2);
 
-  --primary: oklch(0.7 0.18 50);            /* orange */
-  --primary-foreground: oklch(0.18 0.02 260);
-  --secondary: oklch(0.65 0.04 260);        /* grey */
-  --secondary-foreground: oklch(0.99 0 0);
-  --muted: oklch(0.92 0.008 80);
-  --muted-foreground: oklch(0.45 0.02 260);
-  --accent: oklch(0.7 0.18 50);
-  --accent-foreground: oklch(0.18 0.02 260);
-  --destructive: oklch(0.6 0.22 25);
-  --destructive-foreground: oklch(0.99 0 0);
+  --card: var(--theme-card);
+  --card-foreground: var(--theme-card-foreground);
+  --popover: var(--theme-popover);
+  --popover-foreground: var(--theme-popover-foreground);
 
-  --border: oklch(0.85 0.01 80);
-  --input: oklch(0.85 0.01 80);
-  --ring: oklch(0.7 0.18 50);
+  --primary: var(--theme-primary);
+  --primary-foreground: var(--theme-primary-foreground);
+  --secondary: var(--theme-secondary);
+  --secondary-foreground: var(--theme-secondary-foreground);
+  --muted: var(--theme-muted);
+  --muted-foreground: var(--theme-muted-foreground);
+  --accent: var(--theme-accent);
+  --accent-foreground: var(--theme-accent-foreground);
+  --destructive: var(--theme-destructive);
+  --destructive-foreground: var(--theme-destructive-foreground);
 
-  --neon: oklch(0.7 0.19 50);     /* orange */
-  --neon-2: oklch(0.55 0.04 260); /* grey */
-  --grid: oklch(0.22 0.02 260 / 0.08);
+  --border: var(--theme-border);
+  --input: var(--theme-input);
+  --ring: var(--theme-ring);
+
+  --neon: var(--theme-neon);
+  --neon-2: var(--theme-neon-2);
+  --grid: var(--theme-grid);
 }
 
 /* DARK — blue + purple */
 .dark {
-  --background: oklch(0.16 0.04 265);
-  --foreground: oklch(0.97 0.01 250);
-
-  --surface: oklch(0.21 0.05 265);
-  --surface-2: oklch(0.26 0.06 265);
-
-  --card: oklch(0.2 0.05 265);
-  --card-foreground: oklch(0.97 0.01 250);
-  --popover: oklch(0.2 0.05 265);
-  --popover-foreground: oklch(0.97 0.01 250);
-
-  --primary: oklch(0.72 0.18 255);          /* electric blue */
-  --primary-foreground: oklch(0.12 0.03 265);
-  --secondary: oklch(0.65 0.22 300);        /* purple */
-  --secondary-foreground: oklch(0.98 0.01 250);
-  --muted: oklch(0.26 0.05 265);
-  --muted-foreground: oklch(0.72 0.04 260);
-  --accent: oklch(0.65 0.22 300);
-  --accent-foreground: oklch(0.98 0 0);
-  --destructive: oklch(0.65 0.24 25);
-  --destructive-foreground: oklch(0.98 0 0);
-
-  --border: oklch(0.35 0.05 265 / 0.6);
-  --input: oklch(0.3 0.05 265);
-  --ring: oklch(0.72 0.18 255);
-
-  --neon: oklch(0.75 0.2 255);   /* blue */
-  --neon-2: oklch(0.7 0.24 300); /* purple */
-  --grid: oklch(0.75 0.2 255 / 0.08);
+  --theme-background: oklch(0.16 0.04 265);
+  --theme-foreground: oklch(0.97 0.01 250);
+  --theme-surface: oklch(0.21 0.05 265);
+  --theme-surface-2: oklch(0.26 0.06 265);
+  --theme-card: oklch(0.2 0.05 265);
+  --theme-card-foreground: oklch(0.97 0.01 250);
+  --theme-popover: oklch(0.2 0.05 265);
+  --theme-popover-foreground: oklch(0.97 0.01 250);
+  --theme-primary: oklch(0.72 0.18 255);
+  --theme-primary-foreground: oklch(0.12 0.03 265);
+  --theme-secondary: oklch(0.65 0.22 300);
+  --theme-secondary-foreground: oklch(0.98 0.01 250);
+  --theme-muted: oklch(0.26 0.05 265);
+  --theme-muted-foreground: oklch(0.72 0.04 260);
+  --theme-accent: oklch(0.65 0.22 300);
+  --theme-accent-foreground: oklch(0.98 0 0);
+  --theme-destructive: oklch(0.65 0.24 25);
+  --theme-destructive-foreground: oklch(0.98 0 0);
+  --theme-border: oklch(0.35 0.05 265 / 0.6);
+  --theme-input: oklch(0.3 0.05 265);
+  --theme-ring: oklch(0.72 0.18 255);
+  --theme-neon: oklch(0.75 0.2 255);
+  --theme-neon-2: oklch(0.7 0.24 300);
+  --theme-grid: oklch(0.75 0.2 255 / 0.08);
 }
 
 @layer base {
@@ -124,12 +113,12 @@
   html, body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    font-family: var(--font-sans);
+    font-family: "Ligione", var(--font-sans);
     font-feature-settings: "ss01", "cv11";
   }
 
   h1, h2, h3, h4 {
-    font-family: var(--font-display);
+    font-family: "Ligione", var(--font-display);
     letter-spacing: -0.02em;
     font-weight: 900;
     text-transform: uppercase;

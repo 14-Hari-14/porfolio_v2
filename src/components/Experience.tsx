@@ -7,19 +7,22 @@ type Experience = {
   company: string;
   period: string;
   location: string;
-  summary: string;
+  summaryPoints: string[];
   stack: string[];
 };
 
 const experiences: Experience[] = [
   {
-    role: "AI/ML Engineer Intern",
-    company: "Independent / Research",
-    period: "2024 — Present",
+    role: "Data Analyst / ML Engineer Intern",
+    company: "Whizhack Technologies",
+    period: "2026 January — Present",
     location: "Gurgaon, IN",
-    summary:
-      "Building end-to-end ML systems across computer vision, retrieval and NLP. Shipping FastAPI services that wrap trained models for real-world use.",
-    stack: ["Python", "PyTorch", "FastAPI", "FAISS", "Docker"],
+    summaryPoints: [
+      "Trained and optimized a LightGBM malware-screening model on the EMBER-2024 benchmark as a sub-millisecond gateway pre-filter, reducing false positives from 20% to 6% and false negatives from 33% to 15%.",
+      "Built an 82-feature static PE extraction pipeline using Authenticode signatures, overlay entropy, and Rich Header metadata to surface evasive malware patterns.",
+      "Architected a cascading defense flow that routes uncertain predictions through deterministic Python validation logic, keeping verdicts under 0.5 ms.",
+    ],
+    stack: ["Python", "LightGBM", "Suricata"],
   },
 ];
 
@@ -32,7 +35,7 @@ export function Experience() {
   return (
     <section id="about" className="relative py-28 border-t border-border">
       <div className="absolute inset-0 bg-grid-sm opacity-20 pointer-events-none" />
-      <div className="relative mx-auto max-w-7xl px-6">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeader
           index="// 02"
           title="WORK_EXPERIENCE"
@@ -40,7 +43,7 @@ export function Experience() {
         />
 
         <div className="relative">
-          <article className="corner-frame border border-border bg-surface/40 p-8 md:p-10 grid lg:grid-cols-12 gap-8">
+          <article className="corner-frame border border-border bg-surface/40 p-6 sm:p-8 md:p-10 grid gap-8 lg:grid-cols-12">
             <div className="lg:col-span-8 space-y-5">
               <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-neon-2">
                 <span className="px-2 py-0.5 border border-neon-2">
@@ -50,7 +53,7 @@ export function Experience() {
                 <span className="text-muted-foreground">{exp.period}</span>
               </div>
 
-              <h3 className="text-3xl md:text-4xl font-display font-black text-foreground glow leading-tight">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-foreground leading-tight">
                 {exp.role}
               </h3>
 
@@ -60,9 +63,16 @@ export function Experience() {
                 <span className="text-muted-foreground">{exp.location}</span>
               </div>
 
-              <p className="text-base text-muted-foreground leading-relaxed max-w-2xl">
-                {exp.summary}
-              </p>
+              <div className="max-w-2xl space-y-3">
+                <div className="text-[11px] uppercase tracking-[0.25em] text-neon-2">
+                  summary
+                </div>
+                <ul className="space-y-2 text-base text-muted-foreground leading-relaxed list-disc pl-5 marker:text-neon-2">
+                  {exp.summaryPoints.map((point) => (
+                    <li key={point}>{point}</li>
+                  ))}
+                </ul>
+              </div>
 
               <div className="flex flex-wrap gap-2 pt-2">
                 {exp.stack.map((s) => (
@@ -76,7 +86,7 @@ export function Experience() {
               </div>
             </div>
 
-            <div className="lg:col-span-4 flex lg:flex-col items-end justify-between gap-4">
+            <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col items-start lg:items-end justify-between gap-4">
               <div className="text-[11px] font-mono text-neon-2 uppercase tracking-[0.25em]">
                 // record.sys
               </div>

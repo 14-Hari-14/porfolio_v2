@@ -9,10 +9,10 @@ export function Footer() {
           ))}
         </div>
       </div>
-      <div className="mx-auto max-w-7xl px-6 py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-[11px] text-muted-foreground">
-        <div className="flex items-center gap-2">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-[11px] text-muted-foreground">
+        <div className="flex items-center gap-2 flex-wrap">
           <span className="w-1.5 h-1.5 bg-neon animate-blink" />
-          <span>HARI//NAIR — v2.0.26 · built with React + Vite</span>
+          <span>HARI//NAIR — v2 · built with React + Vite</span>
         </div>
         <div className="font-mono">© {new Date().getFullYear()} ALL_SYSTEMS_NOMINAL</div>
       </div>
