@@ -36,8 +36,18 @@
   --color-surface: var(--surface);
   --color-surface-2: var(--surface-2);
 
-  --font-display: "Space Grotesk", ui-sans-serif, system-ui;
+  --font-display: "Basement Grotesque", "Inter", ui-sans-serif, system-ui;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+}
+
+@font-face {
+  font-family: "Basement Grotesque";
+  src: url("/fonts/BasementGrotesque-Black.woff2") format("woff2"),
+       url("/fonts/BasementGrotesque-Black.woff") format("woff");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
 }
 
 /* LIGHT — orange + grey */
