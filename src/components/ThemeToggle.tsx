@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { LuMoon, LuSun } from "react-icons/lu"
+import { Moon, Sun } from "lucide-react";
 
 export function ThemeToggle() {
   const [dark, setDark] = useState(true);
@@ -44,7 +44,7 @@ export function ThemeToggle() {
     >
       <div className="flex items-center gap-2">
         <div className="flex items-center justify-center leading-none">
-          {dark ? <LuSun size={20} className="sm:h-[25px] sm:w-[25px]" /> : <LuMoon size={20} className="sm:h-[25px] sm:w-[25px]" />}
+          {dark ? <Sun size={20} className="sm:h-[25px] sm:w-[25px]" /> : <Moon size={20} className="sm:h-[25px] sm:w-[25px]" />}
         </div>
         <div className="hidden sm:flex items-center leading-none mt-1">
           <span>{dark ? "LIGHT_MODE" : "DARK_MODE"}</span>
