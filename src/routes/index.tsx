@@ -1,26 +1,43 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Nav } from "@/components/Nav";
+import { Hero } from "@/components/Hero";
+import { About } from "@/components/About";
+import { Skills } from "@/components/Skills";
+import { Projects } from "@/components/Projects";
+import { Contact } from "@/components/Contact";
+import { Footer } from "@/components/Footer";
 
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Harishanker S Nair — AI/ML Engineer" },
+      {
+        name: "description",
+        content:
+          "Cyberpunk portfolio of Harishanker S Nair — student and AI/ML engineer based in Kerala, India. Computer vision, NLP, MLOps.",
+      },
+      { property: "og:title", content: "Harishanker S Nair — AI/ML Engineer" },
+      {
+        property: "og:description",
+        content: "AI/ML engineer building intelligent systems for vision, search and reasoning.",
+      },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
+function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="min-h-screen bg-background text-foreground">
+      <Nav />
+      <main>
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <Contact />
+      </main>
+      <Footer />
     </div>
   );
-}
-
-function Index() {
-  return <PlaceholderIndex />;
 }
