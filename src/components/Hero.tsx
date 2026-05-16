@@ -49,7 +49,7 @@ export function Hero() {
               &gt; VIEW_PROJECTS
             </a>
             <a href="#contact" className="corner-frame px-5 py-3 text-xs uppercase tracking-[0.25em] border border-neon-2 text-neon-2 hover:bg-[var(--neon-2)] hover:text-background transition-colors">
-              &gt; ESTABLISH_LINK
+              &gt; CONTACT_ME
             </a>
           </div>
         </div>
