@@ -43,13 +43,18 @@ export function Projects() {
           {projects.map((p) => (
             <article
               key={p.n}
-              className="corner-frame group border border-border bg-surface/40 p-6 md:p-8 hover:border-neon transition-all hover:bg-surface/70"
+              className="corner-frame group relative border border-border bg-surface/40 p-6 md:p-8 hover:border-neon transition-all hover:bg-surface/70 overflow-hidden"
             >
-              <div className="grid md:grid-cols-12 gap-6 items-start">
-                <div className="md:col-span-1 text-3xl font-display font-bold text-neon-2 group-hover:text-neon transition-colors">
-                  {p.n}
+              <div className="grid md:grid-cols-12 gap-6 items-stretch">
+                <div className="md:col-span-2 flex items-stretch">
+                  <div
+                    aria-hidden
+                    className="font-display font-black leading-[0.8] text-neon-2 group-hover:text-neon transition-all duration-500 ease-out origin-left text-5xl md:text-6xl group-hover:text-[7rem] md:group-hover:text-[10rem] group-hover:glow self-start"
+                  >
+                    {p.n}
+                  </div>
                 </div>
-                <div className="md:col-span-8 space-y-3">
+                <div className="md:col-span-7 space-y-3">
                   <h3 className="text-2xl md:text-3xl font-display font-bold text-foreground group-hover:glow transition-all">
                     {p.title}
                   </h3>
@@ -64,7 +69,7 @@ export function Projects() {
                     ))}
                   </div>
                 </div>
-                <div className="md:col-span-3 flex md:justify-end">
+                <div className="md:col-span-3 flex md:justify-end md:items-start">
                   <button className="corner-frame px-4 py-2 text-[11px] uppercase tracking-[0.25em] border border-neon text-neon hover:bg-neon hover:text-background transition-colors">
                     &gt; OPEN_FILE
                   </button>
