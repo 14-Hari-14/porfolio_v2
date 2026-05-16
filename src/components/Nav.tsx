@@ -2,7 +2,7 @@ import { ThemeToggle } from "./ThemeToggle";
 
 const links = [
   { id: "home", label: "HOME" },
-  { id: "about", label: "ABOUT" },
+  { id: "about", label: "EXPERIENCE" },
   { id: "skills", label: "SKILLS" },
   { id: "projects", label: "PROJECTS" },
   { id: "contact", label: "CONTACT" },

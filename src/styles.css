@@ -36,8 +36,18 @@
   --color-surface: var(--surface);
   --color-surface-2: var(--surface-2);
 
-  --font-display: "Space Grotesk", ui-sans-serif, system-ui;
+  --font-display: "Basement Grotesque", "Inter", ui-sans-serif, system-ui;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+}
+
+@font-face {
+  font-family: "Basement Grotesque";
+  src: url("/fonts/BasementGrotesque-Black.woff2") format("woff2"),
+       url("/fonts/BasementGrotesque-Black.woff") format("woff");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
 }
 
 /* LIGHT — orange + grey */
@@ -114,11 +124,16 @@
   html, body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-feature-settings: "ss01", "cv11";
   }
 
-  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.02em; }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
 
   ::selection { background: var(--neon); color: var(--background); }
 }
