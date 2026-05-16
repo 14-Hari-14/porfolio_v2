@@ -14,7 +14,7 @@ export function Hero() {
 
           <h1 className="font-display font-bold leading-[0.9]">
             <span className="block text-sm md:text-base text-muted-foreground mb-3 tracking-[0.4em] uppercase">
-              &gt; HELLO_WORLD :: I_AM
+              &gt; HI :: I_AM
             </span>
             <span className="block text-6xl md:text-8xl lg:text-9xl text-foreground glow">
               HARISHANKER
@@ -34,7 +34,7 @@ export function Hero() {
             </span>
             <span className="text-muted-foreground">/</span>
             <span className="text-sm font-mono text-muted-foreground">
-              KERALA::IN
+              GURGAON::IN
             </span>
           </div>
 
@@ -64,7 +64,7 @@ export function Hero() {
               </span>
             </div>
             {[
-              ["LOC", "Kerala, IN"],
+              ["LOC", "Gurgaon, IN"],
               ["ROLE", "AI/ML Engineer"],
               ["STACK", "Python · PyTorch"],
               ["FOCUS", "CV · NLP · MLOps"],
