@@ -16,8 +16,8 @@ type LinkType = {
 };
 
 const links: LinkType[] = [
-  { title: "LinkedIn", icon: <Linkedin />, href: "https://www.linkedin.com/" },
-  { title: "GitHub", icon: <Github />, href: "https://github.com/" },
+  { title: "LinkedIn", icon: <Linkedin />, href: "https://www.linkedin.com/in/harishankersnair/" },
+  { title: "GitHub", icon: <Github />, href: "https://github.com/14-Hari-14" },
 ];
 
 export function FloatingDock() {
